@@ -27,26 +27,42 @@ export default function ProductCard({
       <div className="relative aspect-[3/4] bg-sand/20 overflow-hidden mb-4">
         {/* Primary image */}
         {image ? (
-          <Image
-            src={image}
-            alt={name}
-            fill
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className="object-cover transition-all duration-700 group-hover:scale-110"
-          />
+          image.startsWith("/uploads") ? (
+            <img
+              src={image}
+              alt={name}
+              className="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+            />
+          ) : (
+            <Image
+              src={image}
+              alt={name}
+              fill
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              className="object-cover transition-all duration-700 group-hover:scale-110"
+            />
+          )
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-sand/40 to-sand/20" />
         )}
 
         {/* Second image on hover */}
         {secondImage && (
-          <Image
-            src={secondImage}
-            alt={`${name} - vista 2`}
-            fill
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className="object-cover absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-          />
+          secondImage.startsWith("/uploads") ? (
+            <img
+              src={secondImage}
+              alt={`${name} - vista 2`}
+              className="object-cover absolute inset-0 w-full h-full opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+            />
+          ) : (
+            <Image
+              src={secondImage}
+              alt={`${name} - vista 2`}
+              fill
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              className="object-cover absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+            />
+          )
         )}
 
         {/* Sale badge */}

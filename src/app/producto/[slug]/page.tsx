@@ -117,14 +117,22 @@ export default function ProductPage() {
           <div className="space-y-4">
             <div className="relative aspect-[3/4] bg-sand/20 overflow-hidden">
               {images.length > 0 ? (
-                <Image
-                  src={images[selectedImage]}
-                  alt={product.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover"
-                  priority
-                />
+                images[selectedImage].startsWith("/uploads") ? (
+                  <img
+                    src={images[selectedImage]}
+                    alt={product.name}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                ) : (
+                  <Image
+                    src={images[selectedImage]}
+                    alt={product.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                    priority
+                  />
+                )
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-foreground/10">
                   <ShoppingBag size={64} />
@@ -167,12 +175,20 @@ export default function ProductPage() {
                       i === selectedImage ? "border-foreground" : "border-transparent"
                     }`}
                   >
-                    <Image
-                      src={img}
-                      alt={`${product.name} ${i + 1}`}
-                      fill
-                      className="object-cover"
-                    />
+                    {img.startsWith("/uploads") ? (
+                      <img
+                        src={img}
+                        alt={`${product.name} ${i + 1}`}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    ) : (
+                      <Image
+                        src={img}
+                        alt={`${product.name} ${i + 1}`}
+                        fill
+                        className="object-cover"
+                      />
+                    )}
                   </button>
                 ))}
               </div>
