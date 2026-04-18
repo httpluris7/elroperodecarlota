@@ -1,26 +1,193 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-background: #FAFAFA;
+  --color-foreground: #111111;
+  --color-sand: #E8DDD3;
+  --color-sand-dark: #D4C4B0;
+  --color-gold: #C9A96E;
+  --color-gold-dark: #B08A4E;
+  --color-cream: #F5F0EB;
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Playfair Display", serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-background); }
+::-webkit-scrollbar-thumb { background: var(--color-sand); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-gold); }
+
+/* Scroll-triggered fade-in animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes heroZoom {
+  0% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes textReveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.8s ease-out both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out both;
+}
+
+.animate-slide-left {
+  animation: slideInLeft 0.8s ease-out both;
+}
+
+.animate-slide-right {
+  animation: slideInRight 0.8s ease-out both;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.6s ease-out both;
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+.animate-hero-zoom {
+  animation: heroZoom 8s ease-out both;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Stagger delays */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+.delay-700 { animation-delay: 700ms; }
+
+/* Product card hover reveal */
+.product-card-overlay {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.group:hover .product-card-overlay {
+  opacity: 1;
+}
+
+/* Elegant line decoration */
+.line-decoration::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 1px;
+  background: var(--color-gold);
+  margin: 1rem auto 0;
+}
+
+/* Text stroke effect for hero */
+.text-outline {
+  -webkit-text-stroke: 1px var(--color-foreground);
+  color: transparent;
+}
+
+/* Parallax-ready */
+.parallax-slow {
+  will-change: transform;
+}
+
+/* Hover lift */
+.hover-lift {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+/* Smooth image reveal on load */
+.img-reveal {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.img-reveal[data-loaded="true"] {
+  opacity: 1;
+}
+
+/* Category card cinematic hover */
+.category-cinematic .category-img {
+  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s ease;
+}
+.category-cinematic:hover .category-img {
+  transform: scale(1.12);
+  filter: brightness(0.7);
+}
+.category-cinematic .category-label {
+  transition: letter-spacing 0.4s ease, transform 0.4s ease;
+}
+.category-cinematic:hover .category-label {
+  letter-spacing: 0.25em;
+  transform: translateY(-4px);
+}
+.category-cinematic .category-line {
+  width: 0;
+  transition: width 0.5s ease 0.1s;
+}
+.category-cinematic:hover .category-line {
+  width: 40px;
 }

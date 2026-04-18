@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String
+  slug     String    @unique
+  image    String?
+  order    Int       @default(0)
+  active   Boolean   @default(true)
+  products Product[]
+}
+
+model Product {
+  id             Int         @id @default(autoincrement())
+  name           String
+  slug           String      @unique
+  description    String      @default("")
+  price          Float
+  compareAtPrice Float?
+  categoryId     Int
+  category       Category    @relation(fields: [categoryId], references: [id])
+  images         String      @default("[]")
+  sizes          String      @default("[]")
+  colors         String      @default("[]")
+  stock          String      @default("{}")
+  stockTotal     Int         @default(0)
+  active         Boolean     @default(true)
+  featured       Boolean     @default(false)
+  createdAt      DateTime    @default(now())
+  orderItems     OrderItem[]
+
+  @@index([categoryId])
+  @@index([active, featured])
+  @@index([active, createdAt])
+}
+
+model Order {
+  id               Int         @id @default(autoincrement())
+  status           String      @default("pending")
+  customerName     String
+  email            String
+  phone            String      @default("")
+  address          String      @default("{}")
+  deliveryMethod   String      @default("shipping")
+  total            Float
+  stripeSessionId  String?     @unique
+  items            OrderItem[]
+  createdAt        DateTime    @default(now())
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+model Subscriber {
+  id               Int      @id @default(autoincrement())
+  email            String   @unique
+  name             String   @default("")
+  phone            String   @default("")
+  wantsEmail       Boolean  @default(true)
+  wantsWhatsapp    Boolean  @default(false)
+  consentAt        DateTime @default(now())
+  consentSource    String   @default("footer")
+  unsubscribeToken String   @unique
+  active           Boolean  @default(true)
+  createdAt        DateTime @default(now())
+
+  @@index([active, wantsEmail])
+}
+
+model OrderItem {
+  id          Int      @id @default(autoincrement())
+  orderId     Int
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId   Int?
+  product     Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  productName String
+  quantity    Int
+  size        String   @default("")
+  color       String   @default("")
+  price       Float
+}

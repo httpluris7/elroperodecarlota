@@ -1,26 +1,41 @@
 {
-  "name": "tienda-temp",
+  "name": "el-ropero-de-carlota",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:seed": "tsx prisma/seed.ts",
+    "db:studio": "prisma studio",
+    "bot": "tsx bot/index.ts"
   },
   "dependencies": {
+    "@prisma/client": "^6.19.3",
+    "grammy": "^1.42.0",
+    "lucide-react": "^1.8.0",
     "next": "16.2.3",
+    "nodemailer": "^8.0.5",
+    "prisma": "^6.19.3",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "sharp": "^0.34.5",
+    "stripe": "^22.0.1",
+    "zustand": "^5.0.12"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^20.19.39",
+    "@types/nodemailer": "^8.0.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.3",
     "tailwindcss": "^4",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }
