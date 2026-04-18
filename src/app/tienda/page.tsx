@@ -5,6 +5,8 @@ import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
 import type { Metadata } from "next";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Tienda",
   description: "Explora toda nuestra colección de moda femenina. Vestidos, tops, pantalones, faldas y accesorios.",

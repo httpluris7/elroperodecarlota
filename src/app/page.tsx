@@ -8,6 +8,8 @@ import CategoryCard from "@/components/CategoryCard";
 import Marquee from "@/components/Marquee";
 import ScrollReveal from "@/components/ScrollReveal";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const [categories, featuredProducts, allProducts] = await Promise.all([
     prisma.category.findMany({
